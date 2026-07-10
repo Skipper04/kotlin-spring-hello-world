@@ -11,127 +11,285 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
             overflow: hidden;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Animated background elements */
+        .background-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            opacity: 0.1;
+            filter: blur(50px);
+        }
+
+        .blob-1 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #fff, transparent);
+            top: -100px;
+            left: -100px;
+            animation: blob-move-1 20s infinite ease-in-out;
+        }
+
+        .blob-2 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, #fff, transparent);
+            bottom: -50px;
+            right: -50px;
+            animation: blob-move-2 25s infinite ease-in-out;
+        }
+
+        .blob-3 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #fff, transparent);
+            top: 50%;
+            right: 10%;
+            animation: blob-move-3 22s infinite ease-in-out;
+        }
+
+        @keyframes blob-move-1 {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(30px, -50px); }
+            66% { transform: translate(-20px, 20px); }
+        }
+
+        @keyframes blob-move-2 {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(-30px, 50px); }
+            66% { transform: translate(20px, -20px); }
+        }
+
+        @keyframes blob-move-3 {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(50px, 20px); }
+            66% { transform: translate(-40px, -30px); }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: float-particle 6s infinite;
+        }
+
+        @keyframes float-particle {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) translateX(0);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) translateX(100px);
+            }
         }
 
         .container {
             text-align: center;
             z-index: 10;
             padding: 20px;
+            position: relative;
+        }
+
+        /* Enhanced Sun */
+        .sun-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sun-orbit {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: rotate-orbit 20s linear infinite;
+        }
+
+        .sun-orbit-2 {
+            width: 150px;
+            height: 150px;
+            animation: rotate-orbit-reverse 15s linear infinite;
+        }
+
+        @keyframes rotate-orbit {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes rotate-orbit-reverse {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
         }
 
         .sun {
             width: 120px;
             height: 120px;
-            background: radial-gradient(circle at 35% 35%, #FFD700, #FFA500);
+            background: radial-gradient(circle at 30% 30%, #FFD700, #FFA500, #FF8C00);
             border-radius: 50%;
-            margin: 0 auto 30px;
-            animation: rise 3s ease-in-out infinite, glow 2s ease-in-out infinite;
-            box-shadow: 0 0 60px rgba(255, 215, 0, 0.8);
+            box-shadow: 0 0 80px rgba(255, 215, 0, 0.9), 
+                        0 0 120px rgba(255, 165, 0, 0.6),
+                        inset -20px -20px 60px rgba(0, 0, 0, 0.2);
+            animation: sun-pulse 4s ease-in-out infinite;
             position: relative;
+            z-index: 5;
         }
 
-        .sun::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            box-shadow: inset -10px -10px 30px rgba(0, 0, 0, 0.2);
+        @keyframes sun-pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 80px rgba(255, 215, 0, 0.9), 
+                            0 0 120px rgba(255, 165, 0, 0.6),
+                            inset -20px -20px 60px rgba(0, 0, 0, 0.2);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 100px rgba(255, 215, 0, 1), 
+                            0 0 150px rgba(255, 165, 0, 0.8),
+                            inset -20px -20px 60px rgba(0, 0, 0, 0.2);
+            }
         }
 
-        .rays {
+        .sun-rays {
             position: absolute;
             width: 160px;
             height: 160px;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            animation: spin 20s linear infinite;
+            animation: spin-rays 30s linear infinite;
         }
 
         .ray {
             position: absolute;
-            width: 8px;
-            height: 40px;
-            background: radial-gradient(ellipse at center, #FFD700, transparent);
+            width: 6px;
+            height: 50px;
+            background: linear-gradient(to top, rgba(255, 215, 0, 1), rgba(255, 215, 0, 0));
             left: 50%;
-            transform-origin: 50% 80px;
-            margin-left: -4px;
+            transform-origin: 50% 85px;
+            margin-left: -3px;
             border-radius: 10px;
+            filter: blur(1px);
         }
 
-        @keyframes spin {
-            from {
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-            to {
-                transform: translate(-50%, -50%) rotate(360deg);
-            }
+        @keyframes spin-rays {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        @keyframes rise {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                box-shadow: 0 0 60px rgba(255, 215, 0, 0.8);
-            }
-            50% {
-                box-shadow: 0 0 80px rgba(255, 215, 0, 1);
-            }
-        }
-
+        /* Text Elements */
         .greeting {
-            font-size: 28px;
+            font-size: 2.5rem;
             color: white;
-            margin-bottom: 30px;
-            font-weight: 300;
-            letter-spacing: 1px;
-            animation: fadeInDown 1.2s ease-out;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            animation: slide-in-top 0.8s ease-out;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         .message {
-            font-size: 32px;
+            font-size: 1.8rem;
             color: white;
-            margin-bottom: 20px;
+            margin: 30px 0;
             font-weight: 300;
-            letter-spacing: 2px;
-            animation: fadeInDown 1.5s ease-out;
-            line-height: 1.5;
+            letter-spacing: 1px;
+            animation: slide-in-bottom 1s ease-out 0.3s both;
+            line-height: 1.6;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .subtitle {
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.9);
-            animation: fadeInUp 1.5s ease-out;
-            margin-top: 30px;
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.95);
+            animation: fade-in 1.5s ease-out 0.6s both;
+            margin-top: 40px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
         }
 
+        /* Hearts Animation */
         .hearts {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-            animation: fadeIn 2s ease-out;
+            gap: 25px;
+            margin-top: 40px;
+            animation: fade-in 2s ease-out 0.8s both;
         }
 
         .heart {
-            font-size: 28px;
-            animation: float 2s ease-in-out infinite;
+            font-size: 3rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .heart:hover {
+            transform: scale(1.2);
         }
 
         .heart:nth-child(1) {
@@ -139,28 +297,36 @@
         }
 
         .heart:nth-child(2) {
-            animation-delay: 0.3s;
+            animation-delay: 0.2s;
         }
 
         .heart:nth-child(3) {
-            animation-delay: 0.6s;
+            animation-delay: 0.4s;
         }
 
-        @keyframes float {
+        @keyframes heartbeat {
             0%, 100% {
-                transform: translateY(0);
-                opacity: 1;
+                transform: scale(1);
             }
-            50% {
-                transform: translateY(-15px);
-                opacity: 0.8;
+            14% {
+                transform: scale(1.1);
+            }
+            28% {
+                transform: scale(1);
+            }
+            42% {
+                transform: scale(1.1);
+            }
+            56% {
+                transform: scale(1);
             }
         }
 
-        @keyframes fadeInDown {
+        /* Keyframe animations */
+        @keyframes slide-in-top {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(-50px);
             }
             to {
                 opacity: 1;
@@ -168,10 +334,10 @@
             }
         }
 
-        @keyframes fadeInUp {
+        @keyframes slide-in-bottom {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(50px);
             }
             to {
                 opacity: 1;
@@ -179,7 +345,7 @@
             }
         }
 
-        @keyframes fadeIn {
+        @keyframes fade-in {
             from {
                 opacity: 0;
             }
@@ -188,174 +354,172 @@
             }
         }
 
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% {
-                opacity: 0.3;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-
-        .clouds {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        .cloud {
-            position: absolute;
-            width: 100px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 40px;
-            animation: float-cloud 20s linear infinite;
-        }
-
-        .cloud:nth-child(1) {
-            top: 10%;
-            left: -100px;
-            animation-duration: 20s;
-        }
-
-        .cloud:nth-child(2) {
-            top: 20%;
-            left: -120px;
-            animation-duration: 25s;
-            animation-delay: 5s;
-        }
-
-        .cloud:nth-child(3) {
-            top: 30%;
-            left: -100px;
-            animation-duration: 22s;
-            animation-delay: 10s;
-        }
-
-        @keyframes float-cloud {
-            0% {
-                left: -120px;
-            }
-            100% {
-                left: 100vw;
-            }
-        }
-
+        /* Floating emojis on click */
         .emoji-animation {
-            position: absolute;
-            font-size: 40px;
-            animation: rise-emoji 3s ease-out forwards;
+            position: fixed;
+            font-size: 3rem;
+            animation: rise-and-fade 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
             pointer-events: none;
+            z-index: 1000;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
         }
 
-        @keyframes rise-emoji {
+        @keyframes rise-and-fade {
             0% {
                 opacity: 1;
-                transform: translateY(0) translateX(0);
+                transform: translateY(0) translateX(0) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-60px) translateX(30px) scale(1.2);
             }
             100% {
                 opacity: 0;
-                transform: translateY(-100px) translateX(20px);
+                transform: translateY(-150px) translateX(60px) scale(0.8);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .greeting {
+                font-size: 2rem;
+            }
+
+            .message {
+                font-size: 1.3rem;
+            }
+
+            .heart {
+                font-size: 2rem;
+            }
+
+            .sun {
+                width: 100px;
+                height: 100px;
+            }
+
+            .sun-container {
+                width: 150px;
+                height: 150px;
+            }
+
+            .sun-orbit {
+                width: 150px;
+                height: 150px;
+            }
+
+            .sun-orbit-2 {
+                width: 120px;
+                height: 120px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="stars" id="stars"></div>
-    <div class="clouds">
-        <div class="cloud"></div>
-        <div class="cloud"></div>
-        <div class="cloud"></div>
+    <!-- Animated Background -->
+    <div class="background-shapes">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
     </div>
 
-    <div class="container">
-        <div class="greeting">
-            Доброе утро, солнышко ☀️
-        </div>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
 
-        <div style="position: relative; display: inline-block; margin-bottom: 40px;">
+    <!-- Main Content -->
+    <div class="container">
+        <div class="greeting">✨ Доброе утро, солнышко ☀️ ✨</div>
+
+        <!-- Animated Sun -->
+        <div class="sun-container">
+            <div class="sun-orbit">
+                <div class="sun-orbit sun-orbit-2"></div>
+            </div>
             <div class="sun">
-                <div class="rays" id="rays"></div>
+                <div class="sun-rays" id="sun-rays"></div>
             </div>
         </div>
 
+        <!-- Main Message -->
         <div class="message">
-            Этот сайт написан для тебя,
-            <br>
-            чтобы ты улыбнулась с утра.
+            Этот сайт написан для тебя,<br>чтобы ты улыбнулась с утра.
         </div>
 
+        <!-- Animated Hearts -->
         <div class="hearts">
             <span class="heart">💛</span>
             <span class="heart">💜</span>
             <span class="heart">💚</span>
         </div>
 
+        <!-- Subtitle -->
         <div class="subtitle">✨ Улыбнись! ✨</div>
     </div>
 
     <script>
-        // Create stars
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            for (let i = 0; i < 50; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                starsContainer.appendChild(star);
-            }
-        }
-
         // Create sun rays
         function createRays() {
-            const raysContainer = document.getElementById('rays');
-            for (let i = 0; i < 12; i++) {
+            const raysContainer = document.getElementById('sun-rays');
+            for (let i = 0; i < 16; i++) {
                 const ray = document.createElement('div');
                 ray.className = 'ray';
-                ray.style.transform = `rotate(${i * 30}deg)`;
+                ray.style.transform = `rotate(${i * 22.5}deg)`;
                 raysContainer.appendChild(ray);
             }
         }
 
-        // Floating emojis on click
-        document.addEventListener('click', (e) => {
-            const emojis = ['😊', '🌈', '✨', '💕', '🎉', '🌸'];
-            const emoji = document.createElement('div');
-            emoji.className = 'emoji-animation';
-            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-            emoji.style.left = e.clientX + 'px';
-            emoji.style.top = e.clientY + 'px';
-            document.body.appendChild(emoji);
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = (Math.random() * 4 + 2) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
 
-            setTimeout(() => emoji.remove(), 3000);
+        // Interactive emoji burst on click
+        document.addEventListener('click', (e) => {
+            const emojis = ['😊', '🌈', '✨', '💕', '🎉', '🌸', '🦋', '🌟', '💫', '🎊'];
+            
+            // Create multiple emojis in a burst pattern
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'emoji-animation';
+                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.left = e.clientX + 'px';
+                    emoji.style.top = e.clientY + 'px';
+                    document.body.appendChild(emoji);
+
+                    setTimeout(() => emoji.remove(), 3000);
+                }, i * 100);
+            }
+        });
+
+        // Interactive hearts
+        document.querySelectorAll('.heart').forEach(heart => {
+            heart.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const emoji = document.createElement('div');
+                emoji.className = 'emoji-animation';
+                emoji.textContent = heart.textContent;
+                emoji.style.left = e.clientX + 'px';
+                emoji.style.top = e.clientY + 'px';
+                document.body.appendChild(emoji);
+
+                setTimeout(() => emoji.remove(), 3000);
+            });
         });
 
         // Initialize
-        createStars();
         createRays();
+        createParticles();
     </script>
 </body>
 </html>
