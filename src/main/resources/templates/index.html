@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доброе утро! ☀️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        .sun {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle at 35% 35%, #FFD700, #FFA500);
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            animation: rise 3s ease-in-out infinite, glow 2s ease-in-out infinite;
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.8);
+            position: relative;
+        }
+
+        .sun::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: inset -10px -10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .rays {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: spin 20s linear infinite;
+        }
+
+        .ray {
+            position: absolute;
+            width: 8px;
+            height: 40px;
+            background: radial-gradient(ellipse at center, #FFD700, transparent);
+            left: 50%;
+            transform-origin: 50% 80px;
+            margin-left: -4px;
+            border-radius: 10px;
+        }
+
+        @keyframes spin {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        @keyframes rise {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 60px rgba(255, 215, 0, 0.8);
+            }
+            50% {
+                box-shadow: 0 0 80px rgba(255, 215, 0, 1);
+            }
+        }
+
+        .message {
+            font-size: 32px;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            animation: fadeInDown 1.5s ease-out;
+            line-height: 1.5;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            animation: fadeInUp 1.5s ease-out;
+            margin-top: 30px;
+        }
+
+        .hearts {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .heart {
+            font-size: 28px;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .heart:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .heart:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .heart:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-15px);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .clouds {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .cloud {
+            position: absolute;
+            width: 100px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 40px;
+            animation: float-cloud 20s linear infinite;
+        }
+
+        .cloud:nth-child(1) {
+            top: 10%;
+            left: -100px;
+            animation-duration: 20s;
+        }
+
+        .cloud:nth-child(2) {
+            top: 20%;
+            left: -120px;
+            animation-duration: 25s;
+            animation-delay: 5s;
+        }
+
+        .cloud:nth-child(3) {
+            top: 30%;
+            left: -100px;
+            animation-duration: 22s;
+            animation-delay: 10s;
+        }
+
+        @keyframes float-cloud {
+            0% {
+                left: -120px;
+            }
+            100% {
+                left: 100vw;
+            }
+        }
+
+        .emoji-animation {
+            position: absolute;
+            font-size: 40px;
+            animation: rise-emoji 3s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes rise-emoji {
+            0% {
+                opacity: 1;
+                transform: translateY(0) translateX(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) translateX(20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="clouds">
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+    </div>
+
+    <div class="container">
+        <div style="position: relative; display: inline-block; margin-bottom: 40px;">
+            <div class="sun">
+                <div class="rays" id="rays"></div>
+            </div>
+        </div>
+
+        <div class="message">
+            Доброе солнышко! ☀️
+            <br>
+            Этот сайт написан для тебя,
+            <br>
+            чтобы ты улыбнулась с утра.
+        </div>
+
+        <div class="hearts">
+            <span class="heart">💛</span>
+            <span class="heart">💜</span>
+            <span class="heart">💚</span>
+        </div>
+
+        <div class="subtitle">✨ Улыбнись! ✨</div>
+    </div>
+
+    <script>
+        // Create stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Create sun rays
+        function createRays() {
+            const raysContainer = document.getElementById('rays');
+            for (let i = 0; i < 12; i++) {
+                const ray = document.createElement('div');
+                ray.className = 'ray';
+                ray.style.transform = `rotate(${i * 30}deg)`;
+                raysContainer.appendChild(ray);
+            }
+        }
+
+        // Floating emojis on click
+        document.addEventListener('click', (e) => {
+            const emojis = ['😊', '🌈', '✨', '💕', '🎉', '🌸'];
+            const emoji = document.createElement('div');
+            emoji.className = 'emoji-animation';
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = e.clientX + 'px';
+            emoji.style.top = e.clientY + 'px';
+            document.body.appendChild(emoji);
+
+            setTimeout(() => emoji.remove(), 3000);
+        });
+
+        // Initialize
+        createStars();
+        createRays();
+    </script>
+</body>
+</html>
